@@ -1,5 +1,6 @@
 const express = require("express");
 const Hotel = require("../models/Hotel");
+const { createError } = require("../utils/error");
 
 const router = express.Router();
 
@@ -49,12 +50,12 @@ router.get("/:id", async (req, res) => {
 });
 
 // Get All
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const hotels = await Hotel.find();
     res.status(200).json(hotels);
   } catch (error) {
-    res.status(500).json(error);
+    next(err);
   }
 });
 
