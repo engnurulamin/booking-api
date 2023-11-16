@@ -13,17 +13,21 @@ const {
 
 const router = express.Router();
 
-router.get("/checkauthentication", verifyToken, (req, res, next) => {
-  res.send("Hello user! You are logged in");
-});
+// understanding authentication
 
-router.get("/checkuser/:id", verifyUser, (req, res, next) => {
-  res.send("Hello user! You are logged in And you can delete your account");
-});
+// router.get("/checkauthentication", verifyToken, (req, res, next) => {
+//   res.send("Hello user! You are logged in");
+// });
 
-router.get("/checkadmin/:id", verifyAdmin, (req, res, next) => {
-  res.send("Hello Admin! You are logged in And you can delete all accounts");
-});
+// router.get("/checkuser/:id", verifyUser, (req, res, next) => {
+//   res.send("Hello user! You are logged in And you can delete your account");
+// });
+
+// router.get("/checkadmin/:id", verifyAdmin, (req, res, next) => {
+//   res.send("Hello Admin! You are logged in And you can delete all accounts");
+// });
+
+// understanding authentication
 
 // Update
 router.put("/:id", updateUser);
