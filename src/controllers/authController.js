@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const { createError } = require("../utils/error");
 
 const register = async (req, res, next) => {
   try {
@@ -17,4 +18,25 @@ const register = async (req, res, next) => {
   }
 };
 
-module.exports = { register };
+const login = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+
+    if (!user) {
+      return next(createError(404, "User not found"));
+    }
+    const isCorrectPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!isCorrectPassword) {
+      return next(createError(400, "Wrong password or username"));
+    }
+    const { password, isAdmin, ...others } = user._doc;
+    res.status(200).json({ ...others });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { register, login };
