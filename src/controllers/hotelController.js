@@ -43,7 +43,7 @@ const updateHotel = async (req, res, next) => {
 
 const deleteHotel = async (req, res, next) => {
   try {
-    const updatededHotel = await Hotel.findByIdAndDelete(req.params.id);
+    await Hotel.findByIdAndDelete(req.params.id);
     res.status(200).json("Hotel has been deleted");
   } catch (error) {
     res.status(500).json(error);
