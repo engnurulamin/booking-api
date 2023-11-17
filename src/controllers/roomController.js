@@ -4,7 +4,6 @@ const Hotel = require("../models/Hotel");
 const createRoom = async (req, res, next) => {
   const hoteliid = req.params.hotelid;
   const newRoom = new Room(req.body);
-  console.log(req.params, "__________");
 
   try {
     const savedRoom = await newRoom.save();
@@ -12,7 +11,6 @@ const createRoom = async (req, res, next) => {
       await Hotel.findByIdAndUpdate(hoteliid, {
         $push: { rooms: savedRoom._id },
       });
-      console.log("++++", hoteliid);
     } catch (error) {
       next(error);
     }
