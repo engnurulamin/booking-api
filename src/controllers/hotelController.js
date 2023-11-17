@@ -24,7 +24,7 @@ const getHotel = async (req, res, next) => {
     const hotel = await Hotel.findById(req.params.id);
     res.status(200).json(hotel);
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 
@@ -37,7 +37,7 @@ const updateHotel = async (req, res, next) => {
     );
     res.status(200).json(updatededHotel);
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 
@@ -46,7 +46,7 @@ const deleteHotel = async (req, res, next) => {
     await Hotel.findByIdAndDelete(req.params.id);
     res.status(200).json("Hotel has been deleted");
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 
