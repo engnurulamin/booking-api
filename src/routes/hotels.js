@@ -5,6 +5,8 @@ const {
   getHotel,
   updateHotel,
   deleteHotel,
+  countByCity,
+  countByType,
 } = require("../controllers/hotelController");
 const { verifyAdmin } = require("../utils/verifyToken");
 
@@ -20,9 +22,11 @@ router.put("/:id", verifyAdmin, updateHotel);
 router.delete("/:id", verifyAdmin, deleteHotel);
 
 // Get One
-router.get("/:id", getHotel);
+router.get("/find/:id", getHotel);
 
 // Get All
 router.get("/", getAllHotels);
+router.get("/count-by-city", countByCity);
+router.get("/count-by-type", countByType);
 
 module.exports = router;
