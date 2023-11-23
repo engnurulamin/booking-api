@@ -24,7 +24,12 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected");
 });
 
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 
