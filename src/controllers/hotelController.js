@@ -12,12 +12,14 @@ const createHotel = async (req, res, next) => {
 
 const getAllHotels = async (req, res, next) => {
   try {
+    let limit = parseInt(req.query.limit, 10);
     const hotels = await Hotel.find();
     res.status(200).json(hotels);
   } catch (error) {
     next(error);
   }
 };
+
 const countByCity = async (req, res, next) => {
   const cities = req.query.cities.split(",");
   try {
