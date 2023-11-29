@@ -12,13 +12,40 @@ const createHotel = async (req, res, next) => {
 
 const getAllHotels = async (req, res, next) => {
   try {
-    let limit = parseInt(req.query.limit, 10);
-    const hotels = await Hotel.find();
+    const { min, max, featured, limit, ...others } = req.query;
+
+    const filter = {};
+    if (min) {
+      filter.cheapestPrice = { $gte: parseInt(min || 1000) };
+    }
+    if (max) {
+      filter.cheapestPrice = {
+        // ...filter.cheapestPrice,
+        $lte: parseInt(max || 5000),
+      };
+    }
+    if (featured) {
+      filter.featured = featured === "true";
+    }
+
+    const hotels = await Hotel.find(filter).limit(parseInt(limit) || 4);
+
     res.status(200).json(hotels);
   } catch (error) {
     next(error);
   }
 };
+
+// const getAllHotels = async (req, res, next) => {
+//   const { min, max, ...others } = req.query;
+//   try {
+//     const limit = parseInt(req.query.limit || 4);
+//     const hotels = await Hotel.find();
+//     res.status(200).json(hotels);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 const countByCity = async (req, res, next) => {
   const cities = req.query.cities.split(",");
