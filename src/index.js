@@ -11,6 +11,13 @@ const cors = require("cors");
 const app = express();
 dotenv.config();
 
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
+
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -24,12 +31,6 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected");
 });
 
-// app.use(cors());
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-  })
-);
 app.use(cookieParser());
 app.use(express.json());
 
