@@ -120,6 +120,7 @@ const getHotelRooms = async (req, res, next) => {
         return Room.findById(room);
       })
     );
+    res.status(200).json(list);
   } catch (error) {
     next(error);
   }
