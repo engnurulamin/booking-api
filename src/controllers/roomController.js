@@ -51,6 +51,36 @@ const updateRoom = async (req, res, next) => {
   }
 };
 
+const updateRoomAvailability = async (req, res, next) => {
+  try {
+    const roomId = req.params.id;
+    const datesToUpdate = req.body.dates;
+
+    if (!roomId || !datesToUpdate) {
+      return res.status(400).json({ error: "Invalid parameters" });
+    }
+
+    const roomExists = await Room.exists({ "roomNumbers._id": roomId });
+
+    if (!roomExists) {
+      return res.status(404).json({ error: "Room not found" });
+    }
+
+    await Room.updateOne(
+      { "roomNumbers._id": roomId },
+      {
+        $push: {
+          "roomNumbers.$.unavailableDates": datesToUpdate,
+        },
+      }
+    );
+
+    res.status(200).json({ message: "Room status has been updated" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteRoom = async (req, res, next) => {
   const hoteliid = req.params.hotelid;
   try {
@@ -74,4 +104,5 @@ module.exports = {
   deleteRoom,
   updateRoom,
   getRoom,
+  updateRoomAvailability,
 };
