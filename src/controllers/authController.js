@@ -43,7 +43,7 @@ const login = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json({ ...others, isAdmin });
+      .json({ details: { ...others }, isAdmin });
   } catch (error) {
     next(error);
   }
