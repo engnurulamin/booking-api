@@ -14,16 +14,6 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// const verifyUser = (req, res, next) => {
-//   verifyToken(req, res, () => {
-//     if (req.user.id === req.params.id || req.user.isAdmin) {
-//       next();
-//     } else {
-//       return next(createError(403, "You are not authorized!"));
-//     }
-//   });
-// };
-
 const verifyUser = (req, res, next) => {
   verifyToken(req, res, next, () => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
@@ -33,16 +23,6 @@ const verifyUser = (req, res, next) => {
     }
   });
 };
-
-// const verifyAdmin = (req, res, next) => {
-//   verifyToken(req, res, next, () => {
-//     if (req.user.isAdmin) {
-//       next();
-//     } else {
-//       return next(createError(403, "You are not an Admin!"));
-//     }
-//   });
-// };
 
 const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, next, () => {
