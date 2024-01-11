@@ -33,7 +33,8 @@ const router = express.Router();
 router.put("/:id", verifyUser, updateUser);
 
 // Delete
-router.delete("/:id", verifyUser, deleteUser);
+router.delete("/:id", deleteUser);
+// router.delete("/:id", verifyUser, deleteUser);
 
 // Get One
 router.get("/:id", verifyUser, getUser);
