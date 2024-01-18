@@ -29,7 +29,8 @@ const getAllHotels = async (req, res, next) => {
       filter.featured = featured === "true";
     }
 
-    const hotels = await Hotel.find(filter).limit(parseInt(limit) || 4);
+    // const hotels = await Hotel.find(filter).limit(parseInt(limit) || 4);
+    const hotels = await Hotel.find(filter).limit(parseInt(limit));
 
     res.status(200).json(hotels);
   } catch (error) {
