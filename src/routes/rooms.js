@@ -13,14 +13,14 @@ const {
 const router = express.Router();
 
 // Create
-router.post("/:hotelid", verifyAdmin, createRoom);
+router.post("/:hotelid", createRoom);
 
 // Update
-router.put("/:id", verifyAdmin, updateRoom);
+router.put("/:id", updateRoom);
 router.put("/availability/:id", updateRoomAvailability);
 
 // Delete
-router.delete("/:id/:hotelid", verifyAdmin, deleteRoom);
+router.delete("/:id/:hotelid", deleteRoom);
 
 // Get One
 router.get("/:id", getRoom);
